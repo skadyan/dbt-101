@@ -108,3 +108,17 @@ Violations: 0 lines
 % Quality: 100%
 -------------
 ```
+
+1. Commit will run the hooks automatically. Output will look like.
+
+```text
+(.venv) C:\Projects\dbt_201>git commit -am "minor fix"
+sqlfluff-lint........................................(no files to check)Skipped
+trim trailing whitespace.................................................Passed
+fix end of files.........................................................Passed
+check yaml...............................................................Passed
+fix requirements.txt.................................(no files to check)Skipped
+flake8...............................................(no files to check)Skipped
+[main 1c248e7] minor fix
+ 1 file changed, 4 insertions(+)
+```
