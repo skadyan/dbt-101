@@ -1,0 +1,5 @@
+-r requirements.txt
+# Version of sqlfluff must be updated in .pre-commit-config.yaml as well
+sqlfluff
+sqlfluff-templater-dbt
+pre-commit

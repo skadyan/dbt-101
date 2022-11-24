@@ -131,3 +131,8 @@ dmypy.json
 # IDE
 .idea/
 .venv/
+
+# dbt
+target/
+dbt_packages/
+logs/
