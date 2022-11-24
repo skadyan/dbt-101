@@ -9,8 +9,8 @@ Bootstrap dbt project (with Apache Spark)
 ```commandline
     md C:\Projects
     cd  C:\Projects
-    git clone https://github.com/skadyan/dbt-201.git
-    cd dbt-201
+    git clone https://github.com/skadyan/dbt_201.git
+    cd dbt_201
 ```
 
 1. Create Virtual Environment and setup dependencies
@@ -22,7 +22,7 @@ Bootstrap dbt project (with Apache Spark)
     python -m pip install -r reqirements-dev.txt
 ```
 
-1. Create dbt profile as following
+1. Create dbt profile as following C:\Users\%USERNAME%\.dbt\profiles.yml
 
 ```yaml
 dbt_201:
