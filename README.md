@@ -1,6 +1,6 @@
-# dbt-101
+# dbt_201
 
-Bootstrap dbt project (with Apache Spark)
+Bootstrap a new dbt project (with Apache Spark) with enterprise grade development configuration.
 
 # Local Setup
 
@@ -8,7 +8,7 @@ Bootstrap dbt project (with Apache Spark)
 
 ```commandline
     md C:\Projects
-    cd  C:\Projects
+    cd C:\Projects
     git clone https://github.com/skadyan/dbt_201.git
     cd dbt_201
 ```
@@ -23,7 +23,7 @@ Bootstrap dbt project (with Apache Spark)
     pre-commit install
 ```
 
-1. Create dbt profile as following C:\Users\%USERNAME%\.dbt\profiles.yml
+1. Create dbt profile as following C:\Users\\%USERNAME%\\.dbt\profiles.yml
 
 ```yaml
 dbt_201:
@@ -53,7 +53,7 @@ dbt version: 1.3.1
 python version: 3.8.10
 python path: C:\Projects\dbt_201\.venv\Scripts\python.exe
 os info: Windows-10-10.0.22621-SP0
-Using profiles.yml file at C:\Users\sankadya\.dbt\profiles.yml
+Using profiles.yml file at C:\Users\skadyan\.dbt\profiles.yml
 Using dbt_project.yml file at C:\Projects\dbt_201\dbt_project.yml
 
 Configuration:
