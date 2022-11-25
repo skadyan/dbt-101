@@ -6,6 +6,11 @@ Bootstrap a new dbt project (with Apache Spark) with enterprise grade developmen
 
 1. Create Project directory and clone the repo
 
+    *Pre-requisites*
+    > * You must have python >= 3.8, say under C:\tools\python38
+    > * You must have installed and configured Apache Spark 3.3.x. See gist for instruction
+    >   * [file-windows-setup-spark-3-1-1-txt](https://gist.github.com/skadyan/fe22a4bf35b1c14821504981887e03f7#file-windows-setup-spark-3-1-1-txt)
+
 ```commandline
     md C:\Projects
     cd C:\Projects
@@ -19,7 +24,7 @@ Bootstrap a new dbt project (with Apache Spark) with enterprise grade developmen
     C:\tools\python38\python -m venv .venv
     .venv\Scripts\activate
     python -m pip install pip --upgrade
-    python -m pip install -r reqirements-dev.txt
+    python -m pip install -r requirements-dev.txt
     pre-commit install
 ```
 
