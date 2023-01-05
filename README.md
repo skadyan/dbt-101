@@ -5,125 +5,131 @@ Bootstrap a new dbt project (with Apache Spark) with enterprise grade developmen
 # Local Setup
 
 1. Create Project directory and clone the repo
+   *Pre-requisites*
+   > * You must have python >= 3.8, say under C:\tools\python38
+   > * You must have installed and configured Apache Spark 3.3.x. See gist for instruction
+       >
+    * [file-windows-setup-spark-3-1-1-txt](https://gist.github.com/skadyan/fe22a4bf35b1c14821504981887e03f7#file-windows-setup-spark-3-1-1-txt)
 
-    *Pre-requisites*
-    > * You must have python >= 3.8, say under C:\tools\python38
-    > * You must have installed and configured Apache Spark 3.3.x. See gist for instruction
-    >   * [file-windows-setup-spark-3-1-1-txt](https://gist.github.com/skadyan/fe22a4bf35b1c14821504981887e03f7#file-windows-setup-spark-3-1-1-txt)
+    ```commandline
+        md C:\Projects
+        cd C:\Projects
+        git clone https://github.com/skadyan/dbt_201.git
+        cd dbt_201
+    ```
 
-```commandline
-    md C:\Projects
-    cd C:\Projects
-    git clone https://github.com/skadyan/dbt_201.git
-    cd dbt_201
-```
+2. Create Virtual Environment and setup dependencies. Make sure you have run `pre-commit install`
 
-1. Create Virtual Environment and setup dependencies. Make sure you have run `pre-commit install`
+   ```commandline
+       C:\tools\python38\python -m venv .venv
+       .venv\Scripts\activate
+       python -m pip install pip --upgrade
+       python -m pip install -r requirements-dev.txt
+       pre-commit install
+   ```
 
-```commandline
-    C:\tools\python38\python -m venv .venv
-    .venv\Scripts\activate
-    python -m pip install pip --upgrade
-    python -m pip install -r requirements-dev.txt
-    pre-commit install
-```
+3. Create dbt profile as following C:\Users\\%USERNAME%\\.dbt\profiles.yml
 
-1. Create dbt profile as following C:\Users\\%USERNAME%\\.dbt\profiles.yml
+   ```yaml
+   dbt_201:
+     outputs:
+       dev:
+         host: localhost
+         method: thrift
+         port: 10000
+         schema: dbt_201_elt
+         threads: 4
+         type: spark
+     target: dev
+   ```
 
-```yaml
-dbt_201:
-  outputs:
-    dev:
-      host: localhost
-      method: thrift
-      port: 10000
-      schema: dbt_201_elt
-      threads: 4
-      type: spark
-  target: dev
-```
+4. Install dbt packages
 
-1. Test Profile and dbt connectivity
+   ```commandline
+       dbt deps
+   ```
 
-```commandline
-    dbt debug
-```
+5. Test Profile and dbt connectivity
 
-It should produce something similar as below.
+   ```commandline
+       dbt debug
+   ```
 
-```text
-(.venv) C:\Projects\dbt_201>dbt debug
-19:03:20  Running with dbt=1.3.1
-dbt version: 1.3.1
-python version: 3.8.10
-python path: C:\Projects\dbt_201\.venv\Scripts\python.exe
-os info: Windows-10-10.0.22621-SP0
-Using profiles.yml file at C:\Users\skadyan\.dbt\profiles.yml
-Using dbt_project.yml file at C:\Projects\dbt_201\dbt_project.yml
+   It should produce something similar as below.
 
-Configuration:
-  profiles.yml file [OK found and valid]
-  dbt_project.yml file [OK found and valid]
+   ```text
+   (.venv) C:\Projects\dbt_201>dbt debug
+   19:03:20  Running with dbt=1.3.1
+   dbt version: 1.3.1
+   python version: 3.8.10
+   python path: C:\Projects\dbt_201\.venv\Scripts\python.exe
+   os info: Windows-10-10.0.22621-SP0
+   Using profiles.yml file at C:\Users\skadyan\.dbt\profiles.yml
+   Using dbt_project.yml file at C:\Projects\dbt_201\dbt_project.yml
 
-Required dependencies:
- - git [OK found]
+   Configuration:
+     profiles.yml file [OK found and valid]
+     dbt_project.yml file [OK found and valid]
 
-Connection:
-  host: localhost
-  port: 10000
-  cluster: None
-  endpoint: None
-  schema: dbt_201_elt
-  organization: 0
-  Connection test: [OK connection ok]
+   Required dependencies:
+    - git [OK found]
 
-All checks passed!
+   Connection:
+     host: localhost
+     port: 10000
+     cluster: None
+     endpoint: None
+     schema: dbt_201_elt
+     organization: 0
+     Connection test: [OK connection ok]
 
-(.venv) C:\Projects\dbt_201>
-```
+   All checks passed!
 
-1. Code Quality Checks
+   (.venv) C:\Projects\dbt_201>
+   ```
 
-```commandline
-    sqlfluff lint
-```
+6. Code Quality Checks
 
-You may run ```sqlfluff fix``` command to apply auto-fix. Modified files must be reviewed manually before
-committing them.
+   ```commandline
+       sqlfluff lint
+   ```
 
-Alternatively, you may run below command as well to produce a summary instead of too verbose output
+   You may run ```sqlfluff fix``` command to apply auto-fix. Modified files must be reviewed manually before
+   committing them.
 
-```commandline
-    diff-quality --violations sqlfluff
-```
+   Alternatively, you may run below command as well to produce a summary instead of too verbose output
 
-It produces something similar
+   ```commandline
+       diff-quality --violations sqlfluff
+   ```
 
-```text
--------------
-Diff Quality
-Quality Report: sqlfluff
-Diff: origin/main...HEAD, staged and unstaged changes
--------------
-models/example/my_first_dbt_model.sql (100%)
-models/example/my_second_dbt_model.sql (100%)
--------------
-Total:   16 lines
-Violations: 0 lines
-% Quality: 100%
--------------
-```
+   It produces something similar
 
-1. Commit will run the hooks automatically. Output will look like.
+   ```text
+   -------------
+   Diff Quality
+   Quality Report: sqlfluff
+   Diff: origin/main...HEAD, staged and unstaged changes
+   -------------
+   models/example/my_first_dbt_model.sql (100%)
+   models/example/my_second_dbt_model.sql (100%)
+   -------------
+   Total:   16 lines
+   Violations: 0 lines
+   % Quality: 100%
+   -------------
+   ```
 
-```text
-(.venv) C:\Projects\dbt_201>git commit -am "minor fix"
-sqlfluff-lint........................................(no files to check)Skipped
-trim trailing whitespace.................................................Passed
-fix end of files.........................................................Passed
-check yaml...............................................................Passed
-fix requirements.txt.................................(no files to check)Skipped
-flake8...............................................(no files to check)Skipped
-[main 1c248e7] minor fix
- 1 file changed, 4 insertions(+)
-```
+7. Commit will run the hooks automatically. Output will look like.
+
+   ```text
+   (.venv) C:\Projects\dbt_201>git commit -am "minor fix"
+   sqlfluff-lint........................................(no files to check)Skipped
+   trim trailing whitespace.................................................Passed
+   fix end of files.........................................................Passed
+   check yaml...............................................................Passed
+   fix requirements.txt.................................(no files to check)Skipped
+   flake8...............................................(no files to check)Skipped
+   [main 1c248e7] minor fix
+    1 file changed, 4 insertions(+)
+   ```
