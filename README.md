@@ -133,3 +133,25 @@ Bootstrap a new dbt project (with Apache Spark) with enterprise grade developmen
    [main 1c248e7] minor fix
     1 file changed, 4 insertions(+)
    ```
+
+Note:-
+If you prefer to do experiments in faster iterative cycle, you may use duckdb (an in-memory/embedded database). To
+use this, use below dbt profile C:\Users\\%USERNAME%\\.dbt\profiles.yml
+
+   ```yaml
+   dbt_201:
+     outputs:
+       dev_spark:
+         host: localhost
+         method: thrift
+         port: 10000
+         schema: dbt_201_elt
+         threads: 4
+         type: spark
+       dev_duckdb:
+         type: duckdb
+         path: './target/mydb.duckdb'
+         #optional fields
+         schema: dbt_201_elt
+     target: dev_duckdb
+   ```
