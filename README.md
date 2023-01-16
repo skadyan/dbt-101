@@ -28,6 +28,17 @@ Bootstrap a new dbt project (with Apache Spark) with enterprise grade developmen
        pre-commit install
    ```
 
+   If you see SSL certificated expired or related issues, add --trusted-host option to bypass the SSL verification
+   ```text
+   Collecting sasl==0.3.1
+   WARNING: Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1131)'))': /pythonlibs/archived/sasl-0.3.1-cp38-cp38-win_amd64.whl
+   ERROR: Could not install packages due to an OSError: HTTPSConnectionPool(host='download.lfd.uci.edu', port=443): Max retries exceeded with url: /pythonlibs/archived/sasl-0.3.1-cp38-cp38-win_amd64.whl (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1131)')))
+   ```
+
+   ```commandline
+       pyhon -m pip install -r requirements-dev.txt --trusted-host download.lfd.uci.edu
+   ```
+
 3. Create dbt profile as following C:\Users\\%USERNAME%\\.dbt\profiles.yml
 
    ```yaml
