@@ -36,7 +36,7 @@ Bootstrap a new dbt project (with Apache Spark) with enterprise grade developmen
    ```
 
    ```commandline
-       pyhon -m pip install -r requirements-dev.txt --trusted-host download.lfd.uci.edu
+       python -m pip install -r requirements-dev.txt --trusted-host download.lfd.uci.edu
    ```
 
 3. Create dbt profile as following C:\Users\\%USERNAME%\\.dbt\profiles.yml

@@ -1,0 +1,105 @@
+[build-system]
+requires = [
+    "setuptools > 65",
+    "wheel",
+]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["devtools*"]
+
+
+[tool.flake8]
+ignore = ['E231', 'E241']
+
+per-file-ignores = [
+    '__init__.py:F401',
+]
+max-complexity = 10
+max-line-length = 120
+#count = true
+filename = ["./devtools/*/*.py",
+    "./tests/*/*.py",
+]
+# format must be html only in CI pipelines
+#format = "html"
+htmldir = "target/flake-reports"
+htmltitle = "Flake8 (PEP 8) Violations"
+
+[tool.distutils.bdist_wheel]
+universal = true
+
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+cache_dir = "target/.pytest_cache"
+
+addopts = '''
+    --html target/pytest-report.html
+    --self-contained-html
+    --cov-report term-missing
+    --cov-report html
+    '''
+testpaths = [
+    "tests",
+    "integration",
+]
+env = [
+    "RUN_ENV=test",
+]
+
+[tool.coverage]
+run.data_file = "target/.coverage"
+run.source = ["devtools"]
+html.directory = "target/coverage-reports"
+xml.output = "target/coverage.xml"
+report.skip_covered = false
+report.fail_under = 90.0
+report.exclude_lines = [
+    "pass"
+]
+
+[project]
+name = "dbt_201"
+version = "0.0.1"
+#dynamic = ["version"]
+requires-python = ">=3.10"
+
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: Proprietary :: Internal",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.9",
+]
+license = { file = "LICENSE.txt" }
+description = "Dbt Sample Project"
+readme = "README.md"
+
+authors = [
+    { name = "Sandeep Kadyan", email = "sandeep.kadyan@gmail.com" },
+]
+
+dependencies = [
+    "typer",
+    "xmlschema",
+    "fsspec",
+    "pygithub",
+    "s3fs",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pip-tools",
+    "twine",
+    "pre-commit",
+    "Flake8-pyproject",
+    "Flake8-html",
+]
+test = [
+    "pytest-cov",
+    "pytest-env",
+    "pytest-html",
+]
+
+[project.scripts]

@@ -1,5 +1,10 @@
 -r requirements.txt
+Faker
+Flake8-html
+Flake8-pyproject
+pip-tools
 pre-commit
 # Version of sqlfluff must be updated in .pre-commit-config.yaml as well
 sqlfluff
 sqlfluff-templater-dbt
+twine
