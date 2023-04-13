@@ -1,0 +1,4 @@
+type_code,type_name
+B,"Buy"
+S,"Sell"
+X,"Unknown"
